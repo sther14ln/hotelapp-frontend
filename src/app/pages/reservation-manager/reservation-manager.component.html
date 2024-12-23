@@ -1,0 +1,75 @@
+<p>reservation-manager works!</p>
+<mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+</mat-form-field>
+
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+        
+      <ng-container matColumnDef="idReservation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let row"> {{row.idReservation}} </td>
+      </ng-container>
+        
+      <ng-container matColumnDef="customerName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Cliente </th>
+        <td mat-cell *matCellDef="let row"> {{row.customerName}} </td>
+      </ng-container>
+        
+      <ng-container matColumnDef="checkinDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Entrada </th>
+        <td mat-cell *matCellDef="let row"> {{row.checkinDate}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="checkoutDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Salida </th>
+        <td mat-cell *matCellDef="let row"> {{row.checkoutDate}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="room.number">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de habitación </th>
+        <td mat-cell *matCellDef="let row"> {{row.room.number}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="room.type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de habitación </th>
+        <td mat-cell *matCellDef="let row"> {{row.room.type}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="room.price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+        <td mat-cell *matCellDef="let row"> {{row.room.price}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="room.available">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Disponible </th>
+        <td mat-cell *matCellDef="let row"> {{row.room.available}} </td>
+      </ng-container>
+        
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef > Actions </th>
+        <td mat-cell *matCellDef="let row" >
+            <button mat-button (click)="openDialog(row)">
+                <mat-icon>mode_edit</mat-icon>
+            </button>    
+
+            <button mat-button color="warn" (click)="cancelar(row.idReservation)" >
+                <mat-icon>delete</mat-icon>
+            </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+      <tr mat-row *matRowDef="let row; columns: getDisplayedColumns();"></tr>
+        
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of reservations"></mat-paginator>
+
+  </div>
+
+  <button mat-fab style="float: right;" (click)="openDialog()">
+    <mat-icon>add</mat-icon>
+</button>

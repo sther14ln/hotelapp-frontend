@@ -1,0 +1,55 @@
+<mat-dialog-content>
+    <mat-toolbar><span>Reservation Info</span></mat-toolbar>
+
+<div class="example-container">
+
+ 
+
+    <mat-form-field>
+        <input matInput placeholder="Nombre cliente" [(ngModel)]="reservation.customerName">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Entrada</mat-label>
+        <input matInput [matDatepicker]="checkinDate" [(ngModel)]="reservation.checkinDate" [min]="minDate" (dateChange)="getDate($event)">
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="checkinDate"></mat-datepicker-toggle>
+        <mat-datepicker #checkinDate></mat-datepicker>
+    </mat-form-field> 
+
+    <mat-form-field>
+        <mat-label>Salida</mat-label>
+        <input matInput [matDatepicker]="checkoutDate" [(ngModel)]="reservation.checkoutDate" [min]="minDate" (dateChange)="getDate($event)">
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="checkoutDate"></mat-datepicker-toggle>
+        <mat-datepicker #checkoutDate></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Rooms</mat-label>
+        <mat-select [(ngModel)]="reservation.room" [compareWith]="compareRooms">
+            @for (r of rooms; track $index) {
+                <mat-option [value]="r" >{{r.type}} {{r.number}}</mat-option>
+          }
+        </mat-select>
+    </mat-form-field>    
+
+
+
+    <!--<mat-form-field>
+        <mat-label>Disponibilidad</mat-label>
+        <mat-select [(ngModel)]="reservation.available"> 
+                <mat-option [value]="true">SI</mat-option> 
+                <mat-option [value]="false">NO</mat-option> 
+        </mat-select>
+    </mat-form-field> -->
+
+
+    <button mat-button (click)="operate()">Done</button>
+    <button mat-button color="warn" (click)="close()">Cancel</button>
+
+
+    <p>{{reservation | json}}</p>
+</div>
+
+</mat-dialog-content>
